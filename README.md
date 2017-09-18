@@ -9,6 +9,6 @@ Progress meter for 10,000,000 rounds
 [ 0%            100% ]
 [....................]
 
-His first choice was correct 22.215% of the time 
-The switch was correct 77.785% of the time 
+His first choice was correct 33.3425% of the time 
+The switch was correct 66.6575% of the time 
 ```
