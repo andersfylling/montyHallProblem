@@ -51,7 +51,7 @@ uint8_t getRandom()
 {
   std::random_device rd;  //Will be used to obtain a seed for the random number engine
   std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-  std::uniform_int_distribution<uint8_t> dis(1, 3);
+  std::uniform_int_distribution<uint8_t> dis(0, 2); // 1 - 3
 
   return dis(gen);
 }
@@ -76,11 +76,13 @@ int main() {
   std::cout << "[";
 
   // get the chances of winning
+  uint8_t outcome = 0;
   uint64_t firstChoice = 0;
-  uint8_t progress = 0;
-  for (int i = 0; i < N; i++) {
+  uint64_t progress = 0;
+  const auto nextProgess = static_cast<uint64_t>(N * 0.05);
+  for (int i = 0; i < N; i++, outcome++) {
     // select one of the three game outcomes
-    const uint8_t outcome = i % 3;
+    // see outcome
 
     // select the first choice of the contestant
     const uint8_t choice = getRandom();
@@ -91,8 +93,14 @@ int main() {
       firstChoice += 1;
     }
 
-    if (progress < (1.0 * i / N) * 100) {
-      progress += 5;
+    // go back to first outcome
+    if (outcome == 2) {
+      outcome = 0;
+    }
+
+    // display progress
+    if (progress < i) {
+      progress += nextProgess;
       std::cout << "." << std::flush;
     }
   }
